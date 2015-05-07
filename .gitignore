@@ -1,1 +1,12 @@
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
 /build
+.idea/misc.xml
+.idea/modules.xml
+mobile/mobile.iml
+wear/wear.iml
+android.iml
+hs_err_pid*
