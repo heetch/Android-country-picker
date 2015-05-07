@@ -63,7 +63,7 @@ public class CountryListAdapter extends BaseAdapter {
         // Load drawable dynamically from country code
         // TODO rename resources with their country code name
         String drawableName = country.getCountryCode().toLowerCase(Locale.ENGLISH) + "_flag";
-        item.getIcon().setImageResource(Utils.getResId(mContext, drawableName));
+        item.getIcon().setImageResource(Utils.getMipmapResId(mContext, drawableName));
         return itemView;
     }
 

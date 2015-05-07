@@ -7,7 +7,7 @@ import android.content.Context;
  */
 public class Utils {
 
-    public static int getResId(Context context, String drawableName) {
-        return context.getResources().getIdentifier(drawableName, "drawable", context.getPackageName());
+    public static int getMipmapResId(Context context, String drawableName) {
+        return context.getResources().getIdentifier(drawableName, "mipmap", context.getPackageName());
     }
 }
