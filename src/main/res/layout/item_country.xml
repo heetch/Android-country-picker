@@ -15,7 +15,7 @@
         android:layout_height="50dp"
         android:layout_marginLeft="10dp"
         android:padding="10dp"
-        android:src="@mipmap/fr_flag.png"/>
+        android:src="@mipmap/fr_flag"/>
 
     <TextView
         android:id="@+id/name"
@@ -26,6 +26,5 @@
         android:paddingRight="10dp"
         android:layout_weight="1"
         android:text="France" />
-
 
 </LinearLayout>
