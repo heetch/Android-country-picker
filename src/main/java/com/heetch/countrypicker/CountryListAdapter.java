@@ -18,7 +18,7 @@ public class CountryListAdapter extends BaseAdapter {
 
     private final Context mContext;
     private static final String TAG = CountryListAdapter.class.getSimpleName();
-    private LayoutInflater inflater;;
+    private LayoutInflater inflater;
     private List<Country> countries;
 
     public CountryListAdapter(Context context, List<Country> countries) {
@@ -61,8 +61,7 @@ public class CountryListAdapter extends BaseAdapter {
         item.getName().setText(country.getName());
 
         // Load drawable dynamically from country code
-        // TODO rename resources with their country code name
-        String drawableName = country.getCountryCode().toLowerCase(Locale.ENGLISH) + "_flag";
+        String drawableName = country.getIsoCode().toLowerCase(Locale.ENGLISH) + "_flag";
         item.getIcon().setImageResource(Utils.getMipmapResId(mContext, drawableName));
         return itemView;
     }

@@ -4,26 +4,26 @@ package com.heetch.countrypicker;
  * Created by GODARD Tuatini on 07/05/15.
  */
 public class Country {
-    private String countryCode;
+    private String isoCode;
     private String name;
-    private String callingCode;
+    private String countyCode;
 
     public Country() {
 
     }
 
-    public Country(String countryCode, String name, String callingCode) {
-        this.countryCode = countryCode;
+    public Country(String isoCode, String name, String countyCode) {
+        this.isoCode = isoCode;
         this.name = name;
-        this.callingCode = callingCode;
+        this.countyCode = countyCode;
     }
 
-    public String getCountryCode() {
-        return countryCode;
+    public String getIsoCode() {
+        return isoCode;
     }
 
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
+    public void setIsoCode(String isoCode) {
+        this.isoCode = isoCode;
     }
 
     public String getName() {
@@ -34,11 +34,11 @@ public class Country {
         this.name = name;
     }
 
-    public String getCallingCode() {
-        return callingCode;
+    public String getCountyCode() {
+        return countyCode;
     }
 
-    public void setCallingCode(String callingCode) {
-        this.callingCode = callingCode;
+    public void setCountyCode(String countyCode) {
+        this.countyCode = countyCode;
     }
 }
