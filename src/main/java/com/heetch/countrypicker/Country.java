@@ -5,17 +5,15 @@ package com.heetch.countrypicker;
  */
 public class Country {
     private String isoCode;
-    private String name;
-    private String countyCode;
+    private String dialingCode;
 
     public Country() {
 
     }
 
-    public Country(String isoCode, String name, String countyCode) {
+    public Country(String isoCode, String dialingCode) {
         this.isoCode = isoCode;
-        this.name = name;
-        this.countyCode = countyCode;
+        this.dialingCode = dialingCode;
     }
 
     public String getIsoCode() {
@@ -26,19 +24,11 @@ public class Country {
         this.isoCode = isoCode;
     }
 
-    public String getName() {
-        return name;
+    public String getDialingCode() {
+        return dialingCode;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCountyCode() {
-        return countyCode;
-    }
-
-    public void setCountyCode(String countyCode) {
-        this.countyCode = countyCode;
+    public void setDialingCode(String dialingCode) {
+        this.dialingCode = dialingCode;
     }
 }

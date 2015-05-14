@@ -3,6 +3,8 @@ package com.heetch.countrypicker;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDialog;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -13,256 +15,35 @@ import java.util.List;
 /**
  * Created by GODARD Tuatini on 07/05/15.
  */
-public class CountryPickerDialog extends AppCompatDialog implements
-        Comparator<Country> {
+public class CountryPickerDialog extends AppCompatDialog {
 
-    private List<Country> countries = new ArrayList<Country>() {{
-        new Country("ad", "Andorra", "376");
-        new Country("ae", "United Arab Emirates", "971");
-        new Country("af", "Afghanistan", "93");
-        new Country("ag", "Antigua and Barbuda", "1-268");
-        new Country("ai", "Anguilla", "1-264");
-        new Country("al", "Albania", "355");
-        new Country("am", "Armenia", "374");
-        new Country("an", "Netherlands Antilles", "599");
-        new Country("ao", "Angola", "244");
-        new Country("aq", "Antarctica", "672");
-        new Country("ar", "Argentina", "54");
-        new Country("as", "American Samoa", "1-684");
-        new Country("at", "Austria", "43");
-        new Country("au", "Australia", "61");
-        new Country("aw", "Aruba", "297");
-        new Country("az", "Azerbaijan", "994");
-        new Country("ba", "Bosnia and Herzegovina", "387");
-        new Country("bb", "Barbados", "1-246");
-        new Country("bd", "Bangladesh", "880");
-        new Country("be", "Belgium", "32");
-        new Country("bf", "Burkina Faso", "226");
-        new Country("bg", "Bulgaria", "359");
-        new Country("bh", "Bahrain", "973");
-        new Country("bi", "Burundi", "257");
-        new Country("bj", "Benin", "229");
-        new Country("bm", "Bermuda", "1-441");
-        new Country("bn", "Brunei", "673");
-        new Country("bo", "Bolivia", "591");
-        new Country("br", "Brazil", "55");
-        new Country("bs", "Bahamas", "1-242");
-        new Country("bt", "Bhutan", "975");
-        new Country("bw", "Botswana", "267");
-        new Country("by", "Belarus", "375");
-        new Country("bz", "Belize", "501");
-        new Country("ca", "Canada", "1");
-        new Country("cc", "Cocos Islands", "61");
-        new Country("cd", "Democratic Republic of the Congo", "243");
-        new Country("cf", "Central African Republic", "236");
-        new Country("cg", "Republic of the congo", "242");
-        new Country("ch", "Switzerland", "41");
-        new Country("ci", "Ivory Coast", "225");
-        new Country("ck", "Cook Islands", "682");
-        new Country("cl", "Chile", "56");
-        new Country("cm", "Cameroon", "237");
-        new Country("cn", "China", "86");
-        new Country("co", "Colombia", "57");
-        new Country("cr", "Costa Rica", "506");
-        new Country("cu", "Cuba", "53");
-        new Country("cv", "Cape Verde", "238");
-        new Country("cw", "Curacao", "599");
-        new Country("cx", "Christmas Islands", "61");
-        new Country("cy", "Cyprus", "357");
-        new Country("cz", "Czech Republic", "420");
-        new Country("de", "Germany", "49");
-        new Country("dj", "Djibouti", "253");
-        new Country("dk", "Denmark", "45");
-        new Country("dm", "Dominica", "1-767");
-        new Country("do", "Dominican Republic", "1-809");
-        new Country("dz", "Algeria", "213");
-        new Country("ec", "Ecuador", "593");
-        new Country("ee", "Estonia", "372");
-        new Country("eg", "Egypt", "20");
-        new Country("er", "Eritrea", "291");
-        new Country("es", "Spain", "34");
-        new Country("et", "Ethiopia", "251");
-        new Country("fi", "Finland", "358");
-        new Country("fj", "Fiji", "679");
-        new Country("fk", "Falkland Islands", "500");
-        new Country("fm", "Micronesia", "691");
-        new Country("fo", "Faroe Islands", "298");
-        new Country("fr", "France", "33");
-        new Country("ga", "Gabon", "241");
-        new Country("gb", "United Kingdom", "44");
-        new Country("gd", "Grenada", "1-473");
-        new Country("ge", "Georgia", "995");
-        new Country("gh", "Ghana", "233");
-        new Country("gi", "Gibraltar", "350");
-        new Country("gl", "Greenland", "299");
-        new Country("gm", "Gambia", "220");
-        new Country("gn", "Guinea", "224");
-        new Country("gq", "Equatorial Guinea", "240");
-        new Country("gr", "Greece", "30");
-        new Country("gt", "Guatemala", "502");
-        new Country("gu", "Guam", "1-671");
-        new Country("gw", "Guinea-Bissau", "245");
-        new Country("gy", "Guyana", "592");
-        new Country("hk", "Hong Kong", "852");
-        new Country("hn", "Honduras", "504");
-        new Country("hr", "Croatia", "385");
-        new Country("ht", "Haiti", "509");
-        new Country("hu", "Hungary", "36");
-        new Country("id", "Indonesia", "62");
-        new Country("ie", "Ireland", "353");
-        new Country("il", "Israel", "972");
-        new Country("in", "India", "91");
-        new Country("io", "British Indian Ocean Territory", "246");
-        new Country("ir", "Iran", "98");
-        new Country("is", "Iceland", "354");
-        new Country("it", "Italy", "39");
-        new Country("jm", "Jamaica", "1-876");
-        new Country("jo", "Jordan", "962");
-        new Country("jp", "Japan", "81");
-        new Country("ke", "Kenya", "254");
-        new Country("kg", "Kyrgyzstan", "996");
-        new Country("kh", "Cambodia", "855");
-        new Country("ki", "Kiribati", "686");
-        new Country("km", "Comoros", "269");
-        new Country("kp", "North Korea", "850");
-        new Country("kr", "South Korea", "82");
-        new Country("kw", "Kuwait", "965");
-        new Country("ky", "Cayman Islands", "1-345");
-        new Country("kz", "Kazakhstan", "7");
-        new Country("la", "Laos", "856");
-        new Country("lb", "Lebanon", "961");
-        new Country("li", "Liechtenstein", "423");
-        new Country("lk", "Sri Lanka", "94");
-        new Country("lr", "Liberia", "231");
-        new Country("ls", "Lesotho", "266");
-        new Country("lt", "Lithuania", "370");
-        new Country("lu", "Luxembourg", "352");
-        new Country("lv", "Latvia", "371");
-        new Country("ly", "Libya", "218");
-        new Country("ma", "Morocco", "212");
-        new Country("mc", "Monaco", "377");
-        new Country("md", "Moldova", "373");
-        new Country("me", "Montenegro", "382");
-        new Country("mg", "Madagascar", "261");
-        new Country("mh", "Marshall Islands", "692");
-        new Country("mk", "Macedonia", "389");
-        new Country("ml", "Mali", "223");
-        new Country("mm", "Myanmar", "95");
-        new Country("mn", "Mongolia", "976");
-        new Country("mo", "Macao", "853");
-        new Country("mp", "Northern Mariana Islands", "1-670");
-        new Country("mr", "Mauritania", "222");
-        new Country("ms", "Montserrat", "1-664");
-        new Country("mt", "Malta", "356");
-        new Country("mu", "Mauritius", "230");
-        new Country("mv", "Maldives", "960");
-        new Country("mw", "Malawi", "265");
-        new Country("mx", "Mexico", "52");
-        new Country("my", "Malaysia", "60");
-        new Country("mz", "Mozambique", "258");
-        new Country("na", "Namibia", "264");
-        new Country("nc", "New Caledonia", "687");
-        new Country("ne", "Niger", "227");
-        new Country("ng", "Nigeria", "234");
-        new Country("ni", "Nicaragua", "505");
-        new Country("nl", "Netherlands", "31");
-        new Country("no", "Norway", "47");
-        new Country("np", "Nepal", "977");
-        new Country("nr", "Nauru", "674");
-        new Country("nu", "Niue", "683");
-        new Country("nz", "New Zealand", "64");
-        new Country("om", "Oman", "968");
-        new Country("pa", "Panama", "507");
-        new Country("pe", "Peru", "51");
-        new Country("pf", "French Polynesia", "689");
-        new Country("pg", "Papua New Guinea", "675");
-        new Country("ph", "Philippines", "63");
-        new Country("pk", "Pakistan", "92");
-        new Country("pl", "Poland", "48");
-        new Country("pr", "Puerto Rico", "1-787");
-        new Country("ps", "Palestine", "970");
-        new Country("pt", "Portugal", "351");
-        new Country("pw", "Palau", "680");
-        new Country("py", "Paraguay", "595");
-        new Country("qa", "Qatar", "974");
-        new Country("re", "Reunion", "262");
-        new Country("ro", "Romania", "40");
-        new Country("rs", "Serbia", "381");
-        new Country("ru", "Russia", "7");
-        new Country("rw", "Rwanda", "250");
-        new Country("sa", "Saudi Arabia", "966");
-        new Country("sb", "Solomon Islands", "677");
-        new Country("sc", "Seychelles", "248");
-        new Country("sd", "Sudan", "249");
-        new Country("se", "Sweden", "46");
-        new Country("sg", "Singapore", "65");
-        new Country("si", "Slovenia", "386");
-        new Country("sk", "Slovakia", "421");
-        new Country("sl", "Sierra Leone", "232");
-        new Country("sm", "San Marino", "378");
-        new Country("sn", "Senegal", "221");
-        new Country("so", "Somalia", "252");
-        new Country("sr", "Suriname", "597");
-        new Country("sv", "El Salvador", "503");
-        new Country("sy", "Syria", "963");
-        new Country("sz", "Swaziland", "268");
-        new Country("tc", "Turks and Caicos Islands", "1-649");
-        new Country("td", "Chad", "235");
-        new Country("tg", "Togo", "228");
-        new Country("th", "Thailand", "66");
-        new Country("tj", "Tajikistan", "992");
-        new Country("tk", "Tokelau", "690");
-        new Country("tl", "East timor", "670");
-        new Country("tm", "Turkmenistan", "993");
-        new Country("tn", "Tunisia", "216");
-        new Country("to", "Tonga", "676");
-        new Country("tr", "Turkey", "90");
-        new Country("tt", "Trinidad and Tobago", "1-868");
-        new Country("tv", "Tuvalu", "688");
-        new Country("tw", "Taiwan", "886");
-        new Country("tz", "Tanzania", "255");
-        new Country("ua", "Ukraine", "380");
-        new Country("ug", "Uganda", "256");
-        new Country("us", "United States", "1");
-        new Country("uy", "Uruguay", "598");
-        new Country("uz", "Uzbekistan", "998");
-        new Country("va", "Vatican", "379");
-        new Country("ve", "Venezuela", "58");
-        new Country("vg", "British Virgin Islands", "1-284");
-        new Country("vi", "U.S. Virgin Islands", "1-340");
-        new Country("vn", "Vietnam", "84");
-        new Country("vu", "Vanuatu", "678");
-        new Country("wf", "Wallis and Futuna", "681");
-        new Country("ws", "Samoa", "685");
-        new Country("xk", "Kosovo", "383");
-        new Country("ye", "Yemen", "967");
-        new Country("yt", "Mayotte", "262");
-        new Country("za", "South Africa", "27");
-        new Country("zm", "Zambia", "260");
-        new Country("zw", "Zimbabwe", "263");
-    }};
+    private List<Country> countries;
 
     private CountryPickerCallbacks callbacks;
     private ListView listview;
 
-    public CountryPickerDialog(Context context) {
+    public CountryPickerDialog(Context context, CountryPickerCallbacks callbacks) {
         super(context);
-        // Sort the all countries list based on country name
-        Collections.sort(countries, this);
+        this.callbacks = callbacks;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.country_picker);
+
         listview = (ListView) findViewById(R.id.country_picker_listview);
+        countries = Utils.parseCountries(Utils.getCountriesJSON(this.getContext()));
 
         CountryListAdapter adapter = new CountryListAdapter(this.getContext(), countries);
         listview.setAdapter(adapter);
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                hide();
+                callbacks.onCountrySelected(countries.get(position));
+            }
+        });
     }
 
-    @Override
-    public int compare(Country lhs, Country rhs) {
-        return lhs.getName().compareTo(rhs.getName());
-    }
 }

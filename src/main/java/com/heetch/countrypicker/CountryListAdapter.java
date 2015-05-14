@@ -51,14 +51,15 @@ public class CountryListAdapter extends BaseAdapter {
         if (convertView == null) {
             item = new Item();
             itemView = inflater.inflate(R.layout.item_country, null);
-            item.setIcon((ImageView) convertView.findViewById(R.id.icon));
-            item.setName((TextView) convertView.findViewById(R.id.name));
+            item.setIcon((ImageView) itemView.findViewById(R.id.icon));
+            item.setName((TextView) itemView.findViewById(R.id.name));
             itemView.setTag(item);
         } else {
             item = (Item) itemView.getTag();
         }
 
-        item.getName().setText(country.getName());
+         item.getName().setText(new Locale("", country.getIsoCode()).getDisplayCountry() +
+                 " (+" + country.getDialingCode() + ")");
 
         // Load drawable dynamically from country code
         String drawableName = country.getIsoCode().toLowerCase(Locale.ENGLISH) + "_flag";
