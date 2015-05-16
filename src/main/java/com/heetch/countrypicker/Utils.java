@@ -1,5 +1,6 @@
 package com.heetch.countrypicker;
 
+import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
@@ -19,7 +20,7 @@ import java.util.List;
 public class Utils {
 
     public static int getMipmapResId(Context context, String drawableName) {
-        return context.getResources().getIdentifier(drawableName, "mipmap", context.getPackageName());
+        return context.getResources().getIdentifier(drawableName, "mipmap", "com.heetch.countrypicker");
     }
 
     public static JSONObject getCountriesJSON(Context context) {
