@@ -20,7 +20,7 @@ import java.util.List;
 public class Utils {
 
     public static int getMipmapResId(Context context, String drawableName) {
-        return context.getResources().getIdentifier(drawableName, "mipmap", "com.heetch.countrypicker");
+        return context.getResources().getIdentifier(drawableName, "mipmap", context.getPackageName());
     }
 
     public static JSONObject getCountriesJSON(Context context) {
