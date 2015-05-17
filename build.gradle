@@ -27,11 +27,6 @@ android {
     }
 }
 
-//def f = new File('src/main/res/raw/countries_dialing_code.json')
-//if (!f.exists()) {
-//    new URL('https://raw.githubusercontent.com/heetch/countries-dialing-codes/master/Data/countries_dialing_code.json?token=AD2Aoui11fJodPZX1rDigqTGrsnzXXwYks5VXhRmwA%3D%3D').withInputStream{ i -> f.withOutputStream{ it << i }}
-//}
-
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.1.1'

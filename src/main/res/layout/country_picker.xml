@@ -11,7 +11,10 @@
         android:layout_weight="1"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp" >
+        android:layout_marginBottom="10dp"
+        android:elevation="3dp"
+        android:fastScrollAlwaysVisible="true"
+        android:fastScrollEnabled="true">
     </ListView>
 
 </LinearLayout>

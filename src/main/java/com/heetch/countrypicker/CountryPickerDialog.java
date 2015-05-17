@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -20,7 +21,6 @@ import java.util.Locale;
 public class CountryPickerDialog extends AppCompatDialog {
 
     private List<Country> countries;
-
     private CountryPickerCallbacks callbacks;
     private ListView listview;
 
@@ -56,7 +56,6 @@ public class CountryPickerDialog extends AppCompatDialog {
                 return countries.get(i);
             }
         }
-
         return null;
     }
 }
