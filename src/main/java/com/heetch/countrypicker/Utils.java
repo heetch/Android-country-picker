@@ -13,6 +13,7 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by GODARD Tuatini on 07/05/15.
@@ -20,7 +21,8 @@ import java.util.List;
 public class Utils {
 
     public static int getMipmapResId(Context context, String drawableName) {
-        return context.getResources().getIdentifier(drawableName, "mipmap", context.getPackageName());
+        return context.getResources().getIdentifier(
+                drawableName.toLowerCase(Locale.ENGLISH), "mipmap", context.getPackageName());
     }
 
     public static JSONObject getCountriesJSON(Context context) {

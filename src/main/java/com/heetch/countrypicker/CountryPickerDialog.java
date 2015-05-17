@@ -27,6 +27,7 @@ public class CountryPickerDialog extends AppCompatDialog {
     public CountryPickerDialog(Context context, CountryPickerCallbacks callbacks) {
         super(context);
         this.callbacks = callbacks;
+        countries = Utils.parseCountries(Utils.getCountriesJSON(this.getContext()));
     }
 
     @Override
@@ -34,9 +35,7 @@ public class CountryPickerDialog extends AppCompatDialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.country_picker);
         ViewCompat.setElevation(getWindow().getDecorView(), 3);
-
         listview = (ListView) findViewById(R.id.country_picker_listview);
-        countries = Utils.parseCountries(Utils.getCountriesJSON(this.getContext()));
 
         CountryListAdapter adapter = new CountryListAdapter(this.getContext(), countries);
         listview.setAdapter(adapter);
@@ -51,4 +50,13 @@ public class CountryPickerDialog extends AppCompatDialog {
         });
     }
 
+    public Country getCountryFromIsoCode(String isoCode) {
+        for (int i = 0; i < countries.size(); i++) {
+            if (countries.get(i).getIsoCode().equals(isoCode.toUpperCase())) {
+                return countries.get(i);
+            }
+        }
+
+        return null;
+    }
 }
