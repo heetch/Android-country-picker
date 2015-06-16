@@ -2,6 +2,7 @@ package com.heetch.countrypicker;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatDialog;
 import android.view.View;
@@ -23,19 +24,28 @@ public class CountryPickerDialog extends AppCompatDialog {
     private List<Country> countries;
     private CountryPickerCallbacks callbacks;
     private ListView listview;
+    private String headingCountryCode;
 
-    public CountryPickerDialog(Context context, CountryPickerCallbacks callbacks) {
+    /**
+     * You can set the heading country in headingCountryCode to show
+     * your favorite country as the head of the list
+     * @param context
+     * @param callbacks
+     * @param headingCountryCode
+     */
+    public CountryPickerDialog(Context context, CountryPickerCallbacks callbacks,
+                               @Nullable String headingCountryCode) {
         super(context);
         this.callbacks = callbacks;
+        this.headingCountryCode = headingCountryCode;
         countries = Utils.parseCountries(Utils.getCountriesJSON(this.getContext()));
         Collections.sort(countries, new Comparator<Country>() {
             @Override
-            public int compare(Country country1, Country country2)
-            {
+            public int compare(Country country1, Country country2) {
                 return new Locale(getContext().getResources().getConfiguration().locale.getLanguage(),
                         country1.getIsoCode()).getDisplayCountry().compareTo(
                         new Locale(getContext().getResources().getConfiguration().locale.getLanguage(),
-                        country2.getIsoCode()).getDisplayCountry());
+                                country2.getIsoCode()).getDisplayCountry());
             }
         });
     }
@@ -58,6 +68,19 @@ public class CountryPickerDialog extends AppCompatDialog {
                         country.getIsoCode().toLowerCase(Locale.ENGLISH) + "_flag"));
             }
         });
+
+        scrollToHeadingCountry();
+    }
+
+    private void scrollToHeadingCountry() {
+        if (headingCountryCode != null) {
+            for (int i = 0; i < listview.getCount(); i++) {
+                if (((Country) listview.getItemAtPosition(i)).getIsoCode().toLowerCase()
+                        .equals(headingCountryCode.toLowerCase())) {
+                    listview.setSelection(i);
+                }
+            }
+        }
     }
 
     public Country getCountryFromIsoCode(String isoCode) {

@@ -68,7 +68,7 @@ public class CountryListAdapter extends BaseAdapter {
         return itemView;
     }
 
-    static class Item {
+    public static class Item {
         private TextView name;
         private ImageView icon;
 
