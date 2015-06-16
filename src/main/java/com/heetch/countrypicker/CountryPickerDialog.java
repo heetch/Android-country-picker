@@ -28,6 +28,16 @@ public class CountryPickerDialog extends AppCompatDialog {
         super(context);
         this.callbacks = callbacks;
         countries = Utils.parseCountries(Utils.getCountriesJSON(this.getContext()));
+        Collections.sort(countries, new Comparator<Country>() {
+            @Override
+            public int compare(Country country1, Country country2)
+            {
+                return new Locale(getContext().getResources().getConfiguration().locale.getLanguage(),
+                        country1.getIsoCode()).getDisplayCountry().compareTo(
+                        new Locale(getContext().getResources().getConfiguration().locale.getLanguage(),
+                        country2.getIsoCode()).getDisplayCountry());
+            }
+        });
     }
 
     @Override
