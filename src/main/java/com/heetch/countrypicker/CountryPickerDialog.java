@@ -25,6 +25,15 @@ public class CountryPickerDialog extends AppCompatDialog {
     private CountryPickerCallbacks callbacks;
     private ListView listview;
     private String headingCountryCode;
+    private boolean showDialingCode;
+
+    public CountryPickerDialog(Context context, CountryPickerCallbacks callbacks) {
+        this(context, callbacks, null, true);
+    }
+
+    public CountryPickerDialog(Context context, CountryPickerCallbacks callbacks, @Nullable String headingCountryCode) {
+        this(context, callbacks, headingCountryCode, true);
+    }
 
     /**
      * You can set the heading country in headingCountryCode to show
@@ -34,10 +43,11 @@ public class CountryPickerDialog extends AppCompatDialog {
      * @param headingCountryCode
      */
     public CountryPickerDialog(Context context, CountryPickerCallbacks callbacks,
-                               @Nullable String headingCountryCode) {
+                               @Nullable String headingCountryCode, boolean showDialingCode) {
         super(context);
         this.callbacks = callbacks;
         this.headingCountryCode = headingCountryCode;
+        this.showDialingCode = showDialingCode;
         countries = Utils.parseCountries(Utils.getCountriesJSON(this.getContext()));
         Collections.sort(countries, new Comparator<Country>() {
             @Override
@@ -57,7 +67,7 @@ public class CountryPickerDialog extends AppCompatDialog {
         ViewCompat.setElevation(getWindow().getDecorView(), 3);
         listview = (ListView) findViewById(R.id.country_picker_listview);
 
-        CountryListAdapter adapter = new CountryListAdapter(this.getContext(), countries);
+        CountryListAdapter adapter = new CountryListAdapter(this.getContext(), countries, showDialingCode);
         listview.setAdapter(adapter);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
