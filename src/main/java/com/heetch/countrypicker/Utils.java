@@ -25,7 +25,7 @@ public class Utils {
     }
 
     public static int getRoundMipmapResId(Context context, String drawableName) {
-        return getMipmapResId(context ,drawableName +="_r");
+        return getMipmapResId(context ,drawableName + "_r");
     }
 
 
