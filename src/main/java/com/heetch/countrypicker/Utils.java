@@ -25,6 +25,11 @@ public class Utils {
                 drawableName.toLowerCase(Locale.ENGLISH), "mipmap", context.getPackageName());
     }
 
+    public static int getRoundMipmapResId(Context context, String drawableName) {
+        return getMipmapResId(context ,drawableName +="_r");
+    }
+
+
     public static JSONObject getCountriesJSON(Context context) {
         String resourceName = "countries_dialing_code";
         int resourceId = context.getResources().getIdentifier(
