@@ -4,6 +4,7 @@
 /.idea/libraries
 .DS_Store
 /build
+.idea
 .idea/misc.xml
 .idea/modules.xml
 mobile/mobile.iml
@@ -11,3 +12,4 @@ wear/wear.iml
 android.iml
 country-picker.iml
 hs_err_pid*
+Android-country-picker.iml
