@@ -1,5 +1,7 @@
 package com.heetch.countrypicker;
 
+import java.util.Locale;
+
 /**
  * Created by GODARD Tuatini on 07/05/15.
  */
@@ -31,4 +33,9 @@ public class Country {
     public void setDialingCode(String dialingCode) {
         this.dialingCode = dialingCode;
     }
+
+	public String  getCountryName() {
+		return new Locale("",this.getIsoCode()).getDisplayCountry();
+
+	}
 }

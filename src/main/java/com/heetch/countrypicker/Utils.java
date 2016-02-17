@@ -1,29 +1,29 @@
 package com.heetch.countrypicker;
 
-import android.app.Application;
 import android.content.Context;
-import android.util.Log;
 
-import org.apache.http.HttpEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
-import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
-/**
- * Created by GODARD Tuatini on 07/05/15.
- */
 public class Utils {
 
     public static int getMipmapResId(Context context, String drawableName) {
         return context.getResources().getIdentifier(
                 drawableName.toLowerCase(Locale.ENGLISH), "mipmap", context.getPackageName());
     }
+
+    public static int getRoundMipmapResId(Context context, String drawableName) {
+        return getMipmapResId(context, drawableName + "_r");
+    }
+
 
     public static JSONObject getCountriesJSON(Context context) {
         String resourceName = "countries_dialing_code";
@@ -45,7 +45,7 @@ public class Utils {
     }
 
     public static List<Country> parseCountries(JSONObject jsonCountries) {
-        List<Country> countries = new ArrayList<Country>();
+        List<Country> countries = new ArrayList<>();
         Iterator<String> iter = jsonCountries.keys();
 
         while (iter.hasNext()) {
@@ -58,6 +58,26 @@ public class Utils {
             }
         }
         return countries;
+    }
+
+    public static Map<String,String> getCountryAndIsoHashMap(Context context) {
+        Map<String,String> map = new HashMap<>();
+
+        List<Country> countries = Utils.parseCountries(Utils.getCountriesJSON(context));
+
+        for(Country c : countries) {
+            map.put(c.getCountryName(), c.getIsoCode());
+        }
+
+        return map;
+    }
+
+    public static String getCountryCodeFromName(Context context, String countryName) {
+        Map<String, String> countriesMap = getCountryAndIsoHashMap(context);
+
+        String code = countriesMap.get(countryName);
+
+        return code == null ? null : code.toLowerCase();
     }
 
     public static String convertStreamToString(java.io.InputStream is) {
