@@ -1,15 +1,11 @@
 package com.heetch.countrypicker;
 
-import android.app.Application;
 import android.content.Context;
-import android.util.Log;
 
-import org.apache.http.HttpEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -45,7 +41,7 @@ public class Utils {
     }
 
     public static List<Country> parseCountries(JSONObject jsonCountries) {
-        List<Country> countries = new ArrayList<Country>();
+        List<Country> countries = new ArrayList<>();
         Iterator<String> iter = jsonCountries.keys();
 
         while (iter.hasNext()) {

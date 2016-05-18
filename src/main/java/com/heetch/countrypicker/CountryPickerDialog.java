@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.text.Collator;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -29,6 +28,7 @@ public class CountryPickerDialog extends AppCompatDialog {
     /**
      * You can set the heading country in headingCountryCode to show
      * your favorite country as the head of the list
+     *
      * @param context
      * @param callbacks
      * @param headingCountryCode
@@ -42,10 +42,12 @@ public class CountryPickerDialog extends AppCompatDialog {
         Collections.sort(countries, new Comparator<Country>() {
             @Override
             public int compare(Country country1, Country country2) {
-                return new Locale(getContext().getResources().getConfiguration().locale.getLanguage(),
-                        country1.getIsoCode()).getDisplayCountry().compareTo(
-                        new Locale(getContext().getResources().getConfiguration().locale.getLanguage(),
-                                country2.getIsoCode()).getDisplayCountry());
+                final Locale locale = getContext().getResources().getConfiguration().locale;
+                final Collator collator = Collator.getInstance(locale);
+                collator.setStrength(Collator.PRIMARY);
+                return collator.compare(
+                        new Locale(locale.getLanguage(), country1.getIsoCode()).getDisplayCountry(),
+                        new Locale(locale.getLanguage(), country2.getIsoCode()).getDisplayCountry());
             }
         });
     }
