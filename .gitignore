@@ -11,3 +11,5 @@ wear/wear.iml
 android.iml
 country-picker.iml
 hs_err_pid*
+.idea/
+*.iml
