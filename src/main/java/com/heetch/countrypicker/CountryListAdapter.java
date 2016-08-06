@@ -1,5 +1,6 @@
 package com.heetch.countrypicker;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import java.util.Locale;
 
 /**
  * Created by GODARD Tuatini on 07/05/15.
+ *
  */
 public class CountryListAdapter extends BaseAdapter {
 
@@ -20,10 +22,12 @@ public class CountryListAdapter extends BaseAdapter {
     private static final String TAG = CountryListAdapter.class.getSimpleName();
     private LayoutInflater inflater;
     private List<Country> countries;
+    private boolean showDialingCode;
 
-    public CountryListAdapter(Context context, List<Country> countries) {
+    public CountryListAdapter(Context context, List<Country> countries, boolean showDialingCode) {
         mContext = context;
         this.countries = countries;
+        this.showDialingCode = showDialingCode;
         inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -42,6 +46,7 @@ public class CountryListAdapter extends BaseAdapter {
         return 0;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View itemView = convertView;
@@ -50,7 +55,7 @@ public class CountryListAdapter extends BaseAdapter {
 
         if (convertView == null) {
             item = new Item();
-            itemView = inflater.inflate(R.layout.item_country, null);
+            itemView = inflater.inflate(R.layout.item_country, parent);
             item.setIcon((ImageView) itemView.findViewById(R.id.icon));
             item.setName((TextView) itemView.findViewById(R.id.name));
             itemView.setTag(item);
@@ -58,8 +63,9 @@ public class CountryListAdapter extends BaseAdapter {
             item = (Item) itemView.getTag();
         }
 
-         item.getName().setText(new Locale(mContext.getResources().getConfiguration().locale.getLanguage(),
-                 country.getIsoCode()).getDisplayCountry());// + " (+" + country.getDialingCode() + ")");
+        item.getName().setText(new Locale(mContext.getResources().getConfiguration().locale.getLanguage(),
+                country.getIsoCode()).getDisplayCountry() + (showDialingCode ?
+                " (+" + country.getDialingCode() + ")" : ""));
 
         // Load drawable dynamically from country code
         String drawableName = country.getIsoCode().toLowerCase(Locale.ENGLISH) + "_flag";
@@ -67,7 +73,7 @@ public class CountryListAdapter extends BaseAdapter {
         return itemView;
     }
 
-    static class Item {
+    public static class Item {
         private TextView name;
         private ImageView icon;
 
