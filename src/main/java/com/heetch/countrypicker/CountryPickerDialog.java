@@ -17,6 +17,7 @@ import java.util.Locale;
 
 /**
  * Created by GODARD Tuatini on 07/05/15.
+ *
  */
 public class CountryPickerDialog extends AppCompatDialog {
 
@@ -25,6 +26,8 @@ public class CountryPickerDialog extends AppCompatDialog {
     private ListView listview;
     private String headingCountryCode;
     private boolean showDialingCode;
+    private boolean roundFlags = false;
+
 
     public CountryPickerDialog(Context context, CountryPickerCallbacks callbacks) {
         this(context, callbacks, null, true);
@@ -62,6 +65,12 @@ public class CountryPickerDialog extends AppCompatDialog {
         });
     }
 
+    public CountryPickerDialog(Context context, CountryPickerCallbacks callbacks,
+                               @Nullable String headingCountryCode, boolean showDialingCode, boolean roundFlags) {
+        this(context, callbacks, headingCountryCode, showDialingCode);
+        this.roundFlags = roundFlags;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +78,14 @@ public class CountryPickerDialog extends AppCompatDialog {
         ViewCompat.setElevation(getWindow().getDecorView(), 3);
         listview = (ListView) findViewById(R.id.country_picker_listview);
 
-        CountryListAdapter adapter = new CountryListAdapter(this.getContext(), countries, showDialingCode);
+        CountryListAdapter adapter;
+
+        if(roundFlags) {
+            adapter = new CountryListAdapter(this.getContext(), countries, showDialingCode, roundFlags);
+        } else {
+            adapter = new CountryListAdapter(this.getContext(), countries, showDialingCode);
+        }
+
         listview.setAdapter(adapter);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
