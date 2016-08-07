@@ -63,7 +63,7 @@ public class CountryListAdapter extends BaseAdapter {
 
         if (convertView == null) {
             item = new Item();
-            itemView = inflater.inflate(R.layout.item_country, parent);
+            itemView = inflater.inflate(R.layout.item_country, parent, false);
             item.setIcon((ImageView) itemView.findViewById(R.id.icon));
             item.setName((TextView) itemView.findViewById(R.id.name));
             itemView.setTag(item);
