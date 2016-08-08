@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
@@ -94,29 +95,26 @@ public class Utils {
     }
 
     public static Bitmap getCircleCroppedBitmap(Bitmap bitmap, float radius) {
-        Bitmap output = Bitmap.createBitmap((int)radius, (int)radius, Bitmap.Config.ARGB_8888);
+        int targetWidth = (int) radius;
+        int targetHeight = (int) radius;
+        Bitmap targetBitmap = Bitmap.createBitmap(targetWidth,
+                targetHeight,Bitmap.Config.ARGB_8888);
 
-        Canvas canvas = new Canvas(output);
+        Canvas canvas = new Canvas(targetBitmap);
+        Path path = new Path();
+        path.addCircle(((float) targetWidth - 1) / 2,
+                ((float) targetHeight - 1) / 2,
+                (Math.min(((float) targetWidth),
+                        ((float) targetHeight)) / 2),
+                Path.Direction.CCW);
 
-        final int color = 0xff424242;
-        final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, (int)radius, (int)radius);
-
-        /*float radius = 0;
-
-        if (bitmap.getWidth() > bitmap.getHeight()) {
-            radius = bitmap.getHeight() / 2;
-        } else {
-            radius = bitmap.getWidth() / 2;
-        }*/
-
-        paint.setAntiAlias(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(color);
-        canvas.drawCircle(radius, radius, radius, paint);
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(bitmap, rect, rect, paint);
-        return output;
+        canvas.clipPath(path);
+        canvas.drawBitmap(bitmap,
+                new Rect(0, 0, bitmap.getWidth(),
+                        bitmap.getHeight()),
+                new Rect(0, 0, targetWidth,
+                        targetHeight), null);
+        return targetBitmap;
     }
 
 
