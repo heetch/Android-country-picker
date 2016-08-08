@@ -110,8 +110,8 @@ public class Utils {
 
         canvas.clipPath(path);
         canvas.drawBitmap(bitmap,
-                new Rect(0, 0, bitmap.getWidth(),
-                        bitmap.getHeight()),
+                new Rect((bitmap.getWidth()/2) - (int)radius, bitmap.getWidth()/2 - (int)radius, (int)radius*2,
+                        (int)radius*2),
                 new Rect(0, 0, targetWidth,
                         targetHeight), null);
         return targetBitmap;
