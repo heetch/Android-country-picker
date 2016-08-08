@@ -94,19 +94,13 @@ public class Utils {
     }
 
     public static Bitmap getCircleCroppedBitmap(Bitmap bitmap, float radius) {
-        Bitmap output;
-
-        if (bitmap.getWidth() > bitmap.getHeight()) {
-            output = Bitmap.createBitmap(bitmap.getHeight(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-        } else {
-            output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getWidth(), Bitmap.Config.ARGB_8888);
-        }
+        Bitmap output = Bitmap.createBitmap((int)radius, (int)radius, Bitmap.Config.ARGB_8888);
 
         Canvas canvas = new Canvas(output);
 
         final int color = 0xff424242;
         final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        final Rect rect = new Rect(0, 0, (int)radius, (int)radius);
 
         /*float radius = 0;
 
