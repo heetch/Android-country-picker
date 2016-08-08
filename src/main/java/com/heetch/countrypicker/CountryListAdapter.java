@@ -33,10 +33,10 @@ public class CountryListAdapter extends BaseAdapter {
         inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public CountryListAdapter(Context context, List<Country> countries, boolean showDialingCode, boolean roundFlags) {
+    public CountryListAdapter(Context context, List<Country> countries, boolean showDialingCode, boolean roundFlags, int radiusInDp) {
         this(context,countries,showDialingCode);
         this.roundFlags = roundFlags;
-        this.cropRadius = Utils.dpToPx(48);
+        this.cropRadius = Utils.dpToPx(radiusInDp);
     }
 
     @Override
