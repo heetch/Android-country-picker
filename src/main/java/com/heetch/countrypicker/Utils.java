@@ -108,18 +108,18 @@ public class Utils {
         final Paint paint = new Paint();
         final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
 
-        float r = 0;
+        /*float radius = 0;
 
         if (bitmap.getWidth() > bitmap.getHeight()) {
-            r = bitmap.getHeight() / 2;
+            radius = bitmap.getHeight() / 2;
         } else {
-            r = bitmap.getWidth() / 2;
-        }
+            radius = bitmap.getWidth() / 2;
+        }*/
 
         paint.setAntiAlias(true);
         canvas.drawARGB(0, 0, 0, 0);
         paint.setColor(color);
-        canvas.drawCircle(r, r, r, paint);
+        canvas.drawCircle(radius, radius, radius, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(bitmap, rect, rect, paint);
         return output;
