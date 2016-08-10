@@ -109,9 +109,11 @@ public class Utils {
                 Path.Direction.CCW);
 
         canvas.clipPath(path);
+        int tWidth = bitmap.getWidth()/2;
+        int tHeight = bitmap.getHeight()/2;
         canvas.drawBitmap(bitmap,
-                new Rect((bitmap.getWidth()/2) - (int)radius, bitmap.getWidth()/2 - (int)radius, (int)radius*2,
-                        (int)radius*2),
+                new Rect(tWidth - (int)radius/2, tHeight - (int)radius/2,
+                        tWidth + (int)radius/2, tHeight + (int)radius/2),
                 new Rect(0, 0, targetWidth,
                         targetHeight), null);
         return targetBitmap;
