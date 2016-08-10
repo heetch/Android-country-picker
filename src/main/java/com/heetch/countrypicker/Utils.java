@@ -112,8 +112,8 @@ public class Utils {
         int tWidth = bitmap.getWidth()/2;
         int tHeight = bitmap.getHeight()/2;
         canvas.drawBitmap(bitmap,
-                new Rect(tWidth - (int)radius/2, tHeight - (int)radius/2,
-                        tWidth + (int)radius/2, tHeight + (int)radius/2),
+                new Rect(tWidth - (int)radius, tHeight - (int)radius,
+                        tWidth + (int)radius, tHeight + (int)radius),
                 new Rect(0, 0, targetWidth,
                         targetHeight), null);
         return targetBitmap;
