@@ -27,7 +27,6 @@ public class CountryPickerDialog extends AppCompatDialog {
     private String headingCountryCode;
     private boolean showDialingCode;
     private boolean roundFlags = false;
-    private int radiusInDp;
 
     public CountryPickerDialog(Context context, CountryPickerCallbacks callbacks) {
         this(context, callbacks, null, true);
@@ -66,10 +65,9 @@ public class CountryPickerDialog extends AppCompatDialog {
     }
 
     public CountryPickerDialog(Context context, CountryPickerCallbacks callbacks,
-                               @Nullable String headingCountryCode, boolean showDialingCode, boolean roundFlags, int radiusInDp) {
+                               @Nullable String headingCountryCode, boolean showDialingCode, boolean roundFlags) {
         this(context, callbacks, headingCountryCode, showDialingCode);
         this.roundFlags = roundFlags;
-        this.radiusInDp = radiusInDp;
     }
 
     @Override
@@ -82,7 +80,7 @@ public class CountryPickerDialog extends AppCompatDialog {
         CountryListAdapter adapter;
 
         if(roundFlags) {
-            adapter = new CountryListAdapter(this.getContext(), countries, showDialingCode, roundFlags, radiusInDp);
+            adapter = new CountryListAdapter(this.getContext(), countries, showDialingCode, roundFlags);
         } else {
             adapter = new CountryListAdapter(this.getContext(), countries, showDialingCode);
         }
