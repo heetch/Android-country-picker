@@ -102,8 +102,8 @@ public class Utils {
 
         Canvas canvas = new Canvas(targetBitmap);
         Path path = new Path();
-        path.addCircle(((float) targetWidth) / 2,
-                ((float) targetHeight) / 2,
+        path.addCircle(targetWidth / 2,
+                targetHeight / 2,
                 radius,
                 Path.Direction.CCW);
 
