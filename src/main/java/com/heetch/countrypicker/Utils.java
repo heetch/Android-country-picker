@@ -7,8 +7,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 
 import org.json.JSONException;
@@ -29,6 +27,7 @@ public class Utils {
                 drawableName.toLowerCase(Locale.ENGLISH), "mipmap", context.getPackageName());
     }
 
+    @Deprecated
     public static int getRoundMipmapResId(Context context, String drawableName) {
         return getMipmapResId(context, drawableName + "_r");
     }
@@ -97,10 +96,12 @@ public class Utils {
     public static Bitmap getCircleCroppedBitmap(Bitmap bitmap, float radius) {
         int targetWidth = (int) radius*2;
         int targetHeight = (int) radius*2;
+
         Bitmap targetBitmap = Bitmap.createBitmap(targetWidth,
                 targetHeight,Bitmap.Config.ARGB_8888);
 
         Canvas canvas = new Canvas(targetBitmap);
+
         Path path = new Path();
         path.addCircle(targetWidth / 2,
                 targetHeight / 2,
@@ -108,13 +109,20 @@ public class Utils {
                 Path.Direction.CCW);
 
         canvas.clipPath(path);
+
+        Paint mPaint = new Paint();
+        mPaint.setAntiAlias(true);
+
         int tWidth = bitmap.getWidth()/2;
         int tHeight = bitmap.getHeight()/2;
+
         canvas.drawBitmap(bitmap,
                 new Rect(tWidth - (int)radius, tHeight - (int)radius,
                         tWidth + (int)radius, tHeight + (int)radius),
-                new Rect(0, 0, targetWidth,
-                        targetHeight), null);
+                new Rect(0, 0,
+                        targetWidth, targetHeight),
+                mPaint);
+
         return targetBitmap;
     }
 
