@@ -22,6 +22,10 @@ import java.util.Map;
 
 public class Utils {
 
+
+    // Crop radius
+    private static float CROP_RADIUS = dpToPx(15);
+
     public static int getMipmapResId(Context context, String drawableName) {
         return context.getResources().getIdentifier(
                 drawableName.toLowerCase(Locale.ENGLISH), "mipmap", context.getPackageName());
@@ -93,9 +97,9 @@ public class Utils {
         return s.hasNext() ? s.next() : "";
     }
 
-    public static Bitmap getCircleCroppedBitmap(Bitmap bitmap, float radius) {
-        int targetWidth = (int) radius*2;
-        int targetHeight = (int) radius*2;
+    public static Bitmap getCircleCroppedBitmap(Bitmap bitmap) {
+        int targetWidth = (int) CROP_RADIUS*2;
+        int targetHeight = (int) CROP_RADIUS*2;
 
         Bitmap targetBitmap = Bitmap.createBitmap(targetWidth,
                 targetHeight,Bitmap.Config.ARGB_8888);
@@ -105,7 +109,7 @@ public class Utils {
         Path path = new Path();
         path.addCircle(targetWidth / 2,
                 targetHeight / 2,
-                radius,
+                CROP_RADIUS,
                 Path.Direction.CCW);
 
         canvas.clipPath(path);
@@ -117,8 +121,8 @@ public class Utils {
         int tHeight = bitmap.getHeight()/2;
 
         canvas.drawBitmap(bitmap,
-                new Rect(tWidth - (int)radius, tHeight - (int)radius,
-                        tWidth + (int)radius, tHeight + (int)radius),
+                new Rect(tWidth - (int)CROP_RADIUS, tHeight - (int)CROP_RADIUS,
+                        tWidth + (int)CROP_RADIUS, tHeight + (int)CROP_RADIUS),
                 new Rect(0, 0,
                         targetWidth, targetHeight),
                 mPaint);
@@ -127,9 +131,9 @@ public class Utils {
     }
 
 
-    public static Bitmap getCircleCroppedBitmap(Context mContext, int resId, float radius) {
+    public static Bitmap getCircleCroppedBitmap(Context mContext, int resId) {
         Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), resId);
-        return getCircleCroppedBitmap(bitmap,radius);
+        return getCircleCroppedBitmap(bitmap);
     }
 
     public static float dpToPx(int dp) {

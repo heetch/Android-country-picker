@@ -20,7 +20,6 @@ public class CountryListAdapter extends BaseAdapter {
 
     private final Context mContext;
     private static final String TAG = CountryListAdapter.class.getSimpleName();
-    private float cropRadius = 0;
     private LayoutInflater inflater;
     private List<Country> countries;
     private boolean showDialingCode;
@@ -33,10 +32,9 @@ public class CountryListAdapter extends BaseAdapter {
         inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public CountryListAdapter(Context context, List<Country> countries, boolean showDialingCode, boolean roundFlags, int radiusInDp) {
+    public CountryListAdapter(Context context, List<Country> countries, boolean showDialingCode, boolean roundFlags) {
         this(context,countries,showDialingCode);
         this.roundFlags = roundFlags;
-        this.cropRadius = Utils.dpToPx(radiusInDp);
     }
 
     @Override
@@ -80,7 +78,7 @@ public class CountryListAdapter extends BaseAdapter {
         int flagResId = Utils.getMipmapResId(mContext, drawableName);
 
         if(roundFlags) {
-            item.getIcon().setImageBitmap(Utils.getCircleCroppedBitmap(mContext,flagResId,cropRadius));
+            item.getIcon().setImageBitmap(Utils.getCircleCroppedBitmap(mContext,flagResId));
         } else {
             item.getIcon().setImageResource(flagResId);
         }
