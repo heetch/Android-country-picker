@@ -95,17 +95,16 @@ public class Utils {
     }
 
     public static Bitmap getCircleCroppedBitmap(Bitmap bitmap, float radius) {
-        int targetWidth = (int) radius;
-        int targetHeight = (int) radius;
+        int targetWidth = (int) radius*2;
+        int targetHeight = (int) radius*2;
         Bitmap targetBitmap = Bitmap.createBitmap(targetWidth,
                 targetHeight,Bitmap.Config.ARGB_8888);
 
         Canvas canvas = new Canvas(targetBitmap);
         Path path = new Path();
-        path.addCircle(((float) targetWidth - 1) / 2,
-                ((float) targetHeight - 1) / 2,
-                (Math.min(((float) targetWidth),
-                        ((float) targetHeight)) / 2),
+        path.addCircle(((float) targetWidth) / 2,
+                ((float) targetHeight) / 2,
+                radius,
                 Path.Direction.CCW);
 
         canvas.clipPath(path);
