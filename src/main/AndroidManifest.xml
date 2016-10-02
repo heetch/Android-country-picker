@@ -3,8 +3,9 @@
           package="com.heetch.countrypicker">
 
     <application
-        android:label="@string/app_name">
         android:allowBackup="false"
+        android:label="@string/app_name"
+    >
     </application>
 
 </manifest>
