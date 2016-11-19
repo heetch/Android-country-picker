@@ -12,14 +12,9 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Created by GODARD Tuatini on 07/05/15.
- *
- */
 public class CountryListAdapter extends BaseAdapter {
 
     private final Context mContext;
-    private static final String TAG = CountryListAdapter.class.getSimpleName();
     private LayoutInflater inflater;
     private List<Country> countries;
     private boolean showDialingCode;
@@ -69,7 +64,7 @@ public class CountryListAdapter extends BaseAdapter {
             item = (Item) itemView.getTag();
         }
 
-        item.getName().setText(new Locale(mContext.getResources().getConfiguration().locale.getLanguage(),
+        item.getName().setText(new Locale(Locale.getDefault().getLanguage(),
                 country.getIsoCode()).getDisplayCountry() + (showDialingCode ?
                 " (+" + country.getDialingCode() + ")" : ""));
 

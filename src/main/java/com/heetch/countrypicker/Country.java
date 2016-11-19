@@ -2,16 +2,12 @@ package com.heetch.countrypicker;
 
 import java.util.Locale;
 
-/**
- * Created by GODARD Tuatini on 07/05/15.
- */
+@SuppressWarnings("unused")
 public class Country {
     private String isoCode;
     private String dialingCode;
 
-    public Country() {
-
-    }
+    public Country() {}
 
     public Country(String isoCode, String dialingCode) {
         this.isoCode = isoCode;
@@ -34,8 +30,8 @@ public class Country {
         this.dialingCode = dialingCode;
     }
 
-	public String  getCountryName() {
-		return new Locale("",this.getIsoCode()).getDisplayCountry();
+    public String  getCountryName() {
+		return new Locale(Locale.getDefault().getLanguage(),this.getIsoCode()).getDisplayCountry();
 
 	}
 }

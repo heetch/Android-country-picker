@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/addressHintItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
     android:layout_marginTop="2dp"
     android:gravity="center_vertical"
-    android:elevation="4dp"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    tools:ignore="UseCompoundDrawables">
 
     <ImageView
         android:id="@+id/icon"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:padding="10dp"
-        app:srcCompat="@mipmap/fr_flag"/>
+        android:contentDescription="@string/country_flag" />
 
     <TextView
         android:id="@+id/name"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="8dp"
+        android:layout_marginEnd="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:layout_weight="1"
-        android:text="France" />
+        android:layout_weight="1"/>
 
 </LinearLayout>

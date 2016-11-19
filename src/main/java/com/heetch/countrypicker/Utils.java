@@ -22,9 +22,8 @@ import java.util.Map;
 
 public class Utils {
 
-
     // Crop radius
-    private static float CROP_RADIUS = dpToPx(15);
+    private static int CROP_RADIUS = dpToPx(15);
 
     public static int getMipmapResId(Context context, String drawableName) {
         return context.getResources().getIdentifier(
@@ -92,8 +91,8 @@ public class Utils {
     }
 
     public static Bitmap getCircleCroppedBitmap(Bitmap bitmap) {
-        int targetWidth = (int) CROP_RADIUS*2;
-        int targetHeight = (int) CROP_RADIUS*2;
+        int targetWidth = CROP_RADIUS*2;
+        int targetHeight = CROP_RADIUS*2;
 
         Bitmap targetBitmap = Bitmap.createBitmap(targetWidth,
                 targetHeight,Bitmap.Config.ARGB_8888);
@@ -115,8 +114,8 @@ public class Utils {
         int tHeight = bitmap.getHeight()/2;
 
         canvas.drawBitmap(bitmap,
-                new Rect(tWidth - (int)CROP_RADIUS, tHeight - (int)CROP_RADIUS,
-                        tWidth + (int)CROP_RADIUS, tHeight + (int)CROP_RADIUS),
+                new Rect(tWidth - CROP_RADIUS, tHeight - CROP_RADIUS,
+                        tWidth + CROP_RADIUS, tHeight + CROP_RADIUS),
                 new Rect(0, 0,
                         targetWidth, targetHeight),
                 mPaint);
@@ -124,13 +123,11 @@ public class Utils {
         return targetBitmap;
     }
 
-
     public static Bitmap getCircleCroppedBitmap(Context mContext, int resId) {
-        Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), resId);
-        return getCircleCroppedBitmap(bitmap);
+        return getCircleCroppedBitmap(BitmapFactory.decodeResource(mContext.getResources(), resId));
     }
 
-    public static float dpToPx(int dp) {
+    public static int dpToPx(int dp) {
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 }
