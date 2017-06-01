@@ -67,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ButterKnife.bind(this);
+
         CountryPickerCallback callback = new CountryPickerCallback() {
             @Override
             public void onCountrySelected(Country country, int flagResId) {
@@ -83,7 +85,5 @@ public class MainActivity extends AppCompatActivity {
         countryPickerDialog = new CountryPickerDialog(this, callback)
                                     .withDialingCode(false)
                                     .withRoundFlags(true);
-        ButterKnife.bind(this);
-
     }
 }
