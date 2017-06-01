@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CountryPicker</string>
-    <string name="format_dialing_code"> (+%1$s)</string>
-    <string name="country_flag">Country Flag</string>
+  <string name="app_name">CountryPicker</string>
+  <string name="format_dialing_code"> (+%1$s)</string>
+  <string name="country_flag">Country Flag</string>
 </resources>
