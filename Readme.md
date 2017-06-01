@@ -12,8 +12,7 @@ See the example to see more detail.
 
 ## How to install
 
-You can install this dependency by downloading the source code or directly via gradle
-with the help of [jitpack](https://jitpack.io/private#heetch/Android-country-picker/1.0.6)
+`compile 'io.xsor:countrypicker:0.2'`
 
 ## How to use
 
