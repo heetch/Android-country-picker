@@ -1,8 +1,0 @@
-<resources>
-    <string name="app_name">Android-country-picker</string>
-
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="country_code">%1$s (+%2$s)</string>
-    <string name="country_flag">Country Flag</string>
-</resources>
