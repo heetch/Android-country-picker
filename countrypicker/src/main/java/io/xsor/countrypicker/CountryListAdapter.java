@@ -59,7 +59,7 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
     item.name.setText(itemText);
 
     int flagResId = CountryPickerUtils
-        .getMipmapResId(c, country.getIsoCode().toLowerCase(Locale.ENGLISH) + "_flag");
+        .getFlagResId(c, country.getIsoCode().toLowerCase(Locale.ENGLISH));
 
     if (roundFlags) {
       item.icon.setImageBitmap(CountryPickerUtils.getCircleCroppedBitmap(c, flagResId));
@@ -92,8 +92,8 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
     public void onClick(View view) {
       Country country = adapter.countries.get(getAdapterPosition());
       adapter.mCallback
-          .onCountrySelected(country, CountryPickerUtils.getMipmapResId(view.getContext(),
-              country.getIsoCode().toLowerCase(Locale.ENGLISH) + "_flag"));
+          .onCountrySelected(country, CountryPickerUtils.getFlagResId(view.getContext(),
+              country.getIsoCode().toLowerCase(Locale.ENGLISH)));
     }
   }
 }

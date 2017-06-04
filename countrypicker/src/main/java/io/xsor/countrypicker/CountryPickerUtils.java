@@ -23,9 +23,9 @@ public class CountryPickerUtils {
   // Crop radius
   private static int CROP_RADIUS = dpToPx(15);
 
-  public static int getMipmapResId(Context context, String drawableName) {
+  public static int getFlagResId(Context context, String drawableName) {
     return context.getResources().getIdentifier(
-        drawableName.toLowerCase(Locale.ENGLISH), "mipmap", context.getPackageName());
+        drawableName.toLowerCase(Locale.ENGLISH) + "_flag", "mipmap", context.getPackageName());
   }
 
   public static JSONObject getCountriesJSON(Context context) {
