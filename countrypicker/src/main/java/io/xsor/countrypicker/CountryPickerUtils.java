@@ -2,6 +2,7 @@ package io.xsor.countrypicker;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.content.res.Resources.NotFoundException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -23,9 +24,14 @@ public class CountryPickerUtils {
   // Crop radius
   private static int CROP_RADIUS = dpToPx(15);
 
-  public static int getFlagResId(Context context, String drawableName) {
-    return context.getResources().getIdentifier(
+  public static int getFlagResId(Context context, String drawableName) throws NotFoundException {
+    int resId = context.getResources().getIdentifier(
         drawableName.toLowerCase(Locale.ENGLISH) + "_flag", "mipmap", context.getPackageName());
+    if(resId != 0) {
+      return resId;
+    } else {
+      throw new NotFoundException("Flag resource not found!");
+    }
   }
 
   public static JSONObject getCountriesJSON(Context context) {
