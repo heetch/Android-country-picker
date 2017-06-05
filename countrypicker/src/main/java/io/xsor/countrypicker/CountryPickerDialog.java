@@ -10,13 +10,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.SearchView.OnQueryTextListener;
-import android.util.Log;
 import android.view.View;
-import android.view.View.OnFocusChangeListener;
-import android.view.Window;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter.Callback;
 import java.text.Collator;
 import java.util.ArrayList;
@@ -25,11 +21,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
-public class Dialog extends AppCompatDialog implements OnQueryTextListener, Callback {
+public class CountryPickerDialog extends AppCompatDialog implements OnQueryTextListener, Callback {
 
   private List<Country> countries;
-  private Adapter adapter;
-  private Listener listener;
+  private CountryAdapter adapter;
+  private CountryPickerDialog.Listener listener;
   private RecyclerView rvCountryList;
   private Animator mAnimator;
 
@@ -56,7 +52,7 @@ public class Dialog extends AppCompatDialog implements OnQueryTextListener, Call
    * @param context The calling activity or context
    * @param listener The listener to be fired when a country from the list is chosen
    */
-  public Dialog(Context context, Listener listener) {
+  public CountryPickerDialog(Context context, Listener listener) {
     super(context);
     this.listener = listener;
     this.titleResId = R.string.pick_a_country;
@@ -69,7 +65,7 @@ public class Dialog extends AppCompatDialog implements OnQueryTextListener, Call
    * @param titleResId The resource id for the title
    * @param listener The listener to be fired when a country from the list is chosen
    */
-  public Dialog(Context context, int titleResId, Listener listener) {
+  public CountryPickerDialog(Context context, int titleResId, Listener listener) {
     this(context, listener);
     this.titleResId = titleResId;
   }
@@ -80,7 +76,7 @@ public class Dialog extends AppCompatDialog implements OnQueryTextListener, Call
    * @param showRoundFlags Show round flag icons in dialog
    * @param listener The listener to be fired when a country from the list is chosen
    */
-  public Dialog(Context context, int titleResId, boolean showRoundFlags,
+  public CountryPickerDialog(Context context, int titleResId, boolean showRoundFlags,
       Listener listener) {
     this(context, titleResId, listener);
     this.showRoundFlags = showRoundFlags;
@@ -93,18 +89,18 @@ public class Dialog extends AppCompatDialog implements OnQueryTextListener, Call
    * @param showDialingCode Show country dialong codes in dialog
    * @param listener The listener to be fired when a country from the list is chosen
    */
-  public Dialog(Context context, int titleResId, boolean showRoundFlags,
+  public CountryPickerDialog(Context context, int titleResId, boolean showRoundFlags,
       boolean showDialingCode, Listener listener) {
     this(context, titleResId, showRoundFlags, listener);
     this.showDialingCode = showDialingCode;
   }
 
-  public Dialog(Context context, boolean roundFlags, boolean dialingCodes,
+  public CountryPickerDialog(Context context, boolean roundFlags, boolean dialingCodes,
       Listener callback) {
     this(context, R.string.pick_a_country, roundFlags, dialingCodes, callback);
   }
 
-  public Dialog(Context context, boolean roundFlags, Listener callback) {
+  public CountryPickerDialog(Context context, boolean roundFlags, Listener callback) {
     this(context, R.string.pick_a_country, roundFlags, false, callback);
   }
 
@@ -150,7 +146,7 @@ public class Dialog extends AppCompatDialog implements OnQueryTextListener, Call
     llm = new LinearLayoutManager(getContext());
     llm.setOrientation(LinearLayoutManager.VERTICAL);
     rvCountryList.setLayoutManager(llm);
-    adapter = new Adapter(getContext(), comparator, listener, showRoundFlags, showDialingCode);
+    adapter = new CountryAdapter(getContext(), comparator, listener, showRoundFlags, showDialingCode);
     adapter.addCallback(this);
     adapter.edit().add(countries).commit();
 
@@ -158,7 +154,7 @@ public class Dialog extends AppCompatDialog implements OnQueryTextListener, Call
 
   }
 
-  public Dialog setScrollToCountry(String countryIsoCode) {
+  public CountryPickerDialog setScrollToCountry(String countryIsoCode) {
     this.scrollToCountryCode = countryIsoCode;
     return this;
   }
@@ -235,5 +231,9 @@ public class Dialog extends AppCompatDialog implements OnQueryTextListener, Call
       }
     });
     mAnimator.start();
+  }
+
+  public interface Listener {
+    void onCountrySelected(Country country, int flagResId);
   }
 }

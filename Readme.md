@@ -1,4 +1,4 @@
-Android country picker
+Android Country Picker
 ====================
 
 ## Features

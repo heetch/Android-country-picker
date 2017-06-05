@@ -13,11 +13,11 @@ import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import io.xsor.countrypicker.Country;
 import io.xsor.countrypicker.Listener;
-import io.xsor.countrypicker.Dialog;
+import io.xsor.countrypicker.CountryPickerDialog;
 
 public class MainActivity extends AppCompatActivity {
 
-  private Dialog countryPickerDialog;
+  private CountryPickerDialog countryPickerDialog;
   private String scrollToCountry;
   private boolean roundFlags = true;
   private boolean dialingCodes;
@@ -89,6 +89,6 @@ public class MainActivity extends AppCompatActivity {
 
   public void makeDialog() {
     countryPickerDialog = null;
-    countryPickerDialog = new Dialog(this, roundFlags, dialingCodes, callback);
+    countryPickerDialog = new CountryPickerDialog(this, roundFlags, dialingCodes, callback);
   }
 }

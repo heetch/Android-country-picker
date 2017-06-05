@@ -8,16 +8,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter;
+import io.xsor.countrypicker.CountryPickerDialog.Listener;
 import java.util.Comparator;
 import java.util.Locale;
 
-public class Adapter extends SortedListAdapter<Country> {
+public class CountryAdapter extends SortedListAdapter<Country> {
 
   private boolean showDialingCode = false;
   private boolean roundFlags = false;
   private Listener listener;
 
-  public Adapter(Context context, Comparator<Country> comparator,
+  public CountryAdapter(Context context, Comparator<Country> comparator,
       Listener listener, boolean roundFlags, boolean showDialingCode) {
     super(context, Country.class, comparator);
     this.listener = listener;
