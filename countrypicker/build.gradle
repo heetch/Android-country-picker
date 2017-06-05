@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: "com.jfrog.bintray"
 
-version = "0.2"
+version = "0.3"
 
 
 android {
@@ -12,7 +12,7 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 2
+        versionCode 3
         versionName version
 
     }
@@ -92,7 +92,6 @@ artifacts {
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
-// https://github.com/bintray/gradle-bintray-plugin
 bintray {
     user = properties.getProperty("bintray.user")
     key = properties.getProperty("bintray.apikey")
@@ -100,7 +99,6 @@ bintray {
     configurations = ['archives']
     pkg {
         repo = "countrypicker"
-        // it is the name that appears in bintray when logged
         name = "countrypicker"
         websiteUrl = siteUrl
         vcsUrl = gitUrl
