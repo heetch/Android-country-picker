@@ -17,10 +17,8 @@ See the example to see more detail.
 ## How to use
 
 See [sample app main activity](https://github.com/xsorifc28/CountryPicker/blob/master/sample/src/main/java/io/xsor/countrypickersample/MainActivity.java).
-```
 
 If you want to retrieve a flag res outside of the country picker dialog
 use `Utils.getMipmapResId(Context context, String drawableName)` where
 the drawable have to be formatted as follow: `countryIsoCodeInLowerCase`.
-For example:
     `Utils.getMipmapResId(mContext, "fr")`
