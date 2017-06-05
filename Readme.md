@@ -16,8 +16,7 @@ See the example to see more detail.
 
 ## How to use
 
-See [sample app main activity](https://github
-.com/xsorifc28/CountryPicker/blob/master/sample/src/main/java/io/xsor/countrypickersample/MainActivity.java).
+See [sample app main activity](https://github.com/xsorifc28/CountryPicker/blob/master/sample/src/main/java/io/xsor/countrypickersample/MainActivity.java).
 ```
 
 If you want to retrieve a flag res outside of the country picker dialog
