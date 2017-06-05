@@ -12,7 +12,6 @@ import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import io.xsor.countrypicker.Country;
-import io.xsor.countrypicker.Listener;
 import io.xsor.countrypicker.CountryPickerDialog;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
   @BindView(R.id.tvCountry)
   TextView tvCountry;
 
-  Listener callback = new Listener() {
+  CountryPickerDialog.Listener callback = new CountryPickerDialog.Listener() {
     @Override
     public void onCountrySelected(Country country, int flagResId) {
       ivFlag.setImageResource(flagResId);
