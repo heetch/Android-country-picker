@@ -12,25 +12,16 @@ See the example to see more detail.
 
 ## How to install
 
-`compile 'io.xsor:countrypicker:0.2'`
+`compile 'io.xsor:countrypicker:0.3'`
 
 ## How to use
 
-To show CountryPicker as a dialog:
-
-```java
-CountryPickerDialog countryPicker =
-    new CountryPickerDialog(mContext, new CountryPickerCallbacks() {
-        @Override
-        public void onCountrySelected(Country country, int flagResId) {
-            // TODO handle listener
-        }
-    });
-countryPicker.show();
+See [sample app main activity](https://github
+.com/xsorifc28/CountryPicker/blob/master/sample/src/main/java/io/xsor/countrypickersample/MainActivity.java).
 ```
 
 If you want to retrieve a flag res outside of the country picker dialog
 use `Utils.getMipmapResId(Context context, String drawableName)` where
-the drawable have to be formatted as follow: `countryIsoCodeInLowerCase_flag`.
+the drawable have to be formatted as follow: `countryIsoCodeInLowerCase`.
 For example:
-    `Utils.getMipmapResId(mContext, "fr_flag")`
+    `Utils.getMipmapResId(mContext, "fr")`
