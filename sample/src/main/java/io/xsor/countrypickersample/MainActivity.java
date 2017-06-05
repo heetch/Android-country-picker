@@ -12,27 +12,45 @@ import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import io.xsor.countrypicker.Country;
-import io.xsor.countrypicker.CountryPickerCallback;
-import io.xsor.countrypicker.CountryPickerDialog;
+import io.xsor.countrypicker.Listener;
+import io.xsor.countrypicker.Dialog;
 
 public class MainActivity extends AppCompatActivity {
+
+  private Dialog countryPickerDialog;
+  private String scrollToCountry;
+  private boolean roundFlags = true;
+  private boolean dialingCodes;
 
   @BindView(R.id.ivFlag)
   ImageView ivFlag;
   @BindView(R.id.tvCountry)
   TextView tvCountry;
-  private CountryPickerDialog countryPickerDialog;
-  private String scrollToCountry;
+
+  Listener callback = new Listener() {
+    @Override
+    public void onCountrySelected(Country country, int flagResId) {
+      ivFlag.setImageResource(flagResId);
+      tvCountry.setText(String.format(getString(R.string.selected_country),
+          country.getCountryName(),
+          country.getIsoCode(),
+          country.getDialingCodeInt()));
+      scrollToCountry = country.getIsoCode();
+      countryPickerDialog.dismiss();
+    }
+  };
 
   @OnClick(R.id.btShowDialog)
   void onShowDialogClick(View v) {
-    countryPickerDialog.withScrollToCountry(null);
+    makeDialog();
+    countryPickerDialog.setScrollToCountry(null);
     countryPickerDialog.show();
   }
 
   @OnClick(R.id.btShowDialogScroll)
   void onShowDialogScrollClick(View v) {
-    countryPickerDialog.withScrollToCountry(scrollToCountry);
+    makeDialog();
+    countryPickerDialog.setScrollToCountry(scrollToCountry);
     countryPickerDialog.show();
   }
 
@@ -44,10 +62,10 @@ public class MainActivity extends AppCompatActivity {
     if (checked) {
       switch (rb.getId()) {
         case R.id.rbNormal:
-          countryPickerDialog.withRoundFlags(false);
+          roundFlags = false;
           break;
         case R.id.rbRound:
-          countryPickerDialog.withRoundFlags(true);
+          roundFlags = true;
           break;
       }
     }
@@ -55,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
   @OnCheckedChanged(R.id.cbDialingCode)
   void onDialingCodeCheckboxChange(CheckBox cb) {
-    countryPickerDialog.withDialingCode(cb.isChecked());
+    dialingCodes = cb.isChecked();
   }
 
   @Override
@@ -65,21 +83,12 @@ public class MainActivity extends AppCompatActivity {
 
     ButterKnife.bind(this);
 
-    CountryPickerCallback callback = new CountryPickerCallback() {
-      @Override
-      public void onCountrySelected(Country country, int flagResId) {
-        ivFlag.setImageResource(flagResId);
-        tvCountry.setText(String.format(getString(R.string.selected_country),
-            country.getCountryName(),
-            country.getIsoCode(),
-            country.getDialingCodeInt()));
-        scrollToCountry = country.getIsoCode();
-        countryPickerDialog.dismiss();
-      }
-    };
+    makeDialog();
 
-    countryPickerDialog = new CountryPickerDialog(this, callback)
-        .withDialingCode(false)
-        .withRoundFlags(true);
+  }
+
+  public void makeDialog() {
+    countryPickerDialog = null;
+    countryPickerDialog = new Dialog(this, roundFlags, dialingCodes, callback);
   }
 }

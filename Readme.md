@@ -23,7 +23,7 @@ CountryPickerDialog countryPicker =
     new CountryPickerDialog(mContext, new CountryPickerCallbacks() {
         @Override
         public void onCountrySelected(Country country, int flagResId) {
-            // TODO handle callback
+            // TODO handle listener
         }
     });
 countryPicker.show();

@@ -1,15 +1,17 @@
 package io.xsor.countrypicker;
 
+
+import android.support.annotation.NonNull;
+import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter;
 import java.util.Locale;
 
 @SuppressWarnings("unused")
-public class Country {
+public class Country implements SortedListAdapter.ViewModel {
 
   private String isoCode;
-  private String dialingCode;
+  private String dialingCode = "-1";
 
-  public Country() {
-  }
+  public Country() {}
 
   public Country(String isoCode, String dialingCode) {
     this.isoCode = isoCode.toLowerCase();
@@ -33,12 +35,32 @@ public class Country {
   }
 
   public int getDialingCodeInt() {
-    return Integer.valueOf(dialingCode);
+    return Integer.parseInt(dialingCode);
   }
 
   public String getCountryName() {
     return new Locale(Locale.getDefault().getLanguage(), this.getIsoCode()).getDisplayCountry();
 
+  }
+
+  @Override
+  public <T> boolean isSameModelAs(@NonNull T item) {
+    if (item instanceof Country) {
+      final Country other = (Country) item;
+      return other.getIsoCode().equals(isoCode);
+    }
+    return false;
+  }
+
+  @Override
+  public <T> boolean isContentTheSameAs(@NonNull T item) {
+    if (item instanceof Country) {
+      final Country other = (Country) item;
+      return isoCode != null ? isoCode.equals(other.getIsoCode()) : other.getIsoCode() == null &&
+          dialingCode != null ? getDialingCodeInt() == other.getDialingCodeInt() : other
+          .getDialingCodeInt() > -1;
+    }
+    return false;
   }
 
   @Override
@@ -52,12 +74,12 @@ public class Country {
 
     Country country = (Country) o;
 
-    return isoCode != null ? isoCode.equals(country.isoCode) : country.isoCode == null;
+    return isoCode.equals(country.getIsoCode());
 
   }
 
   @Override
   public int hashCode() {
-    return isoCode != null ? isoCode.hashCode() : 0;
+    return isoCode.hashCode();
   }
 }

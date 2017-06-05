@@ -2,13 +2,17 @@ package io.xsor.countrypicker;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.content.res.Resources.NotFoundException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.RectF;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,18 +23,18 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class CountryPickerUtils {
+public class Utils {
 
   // Crop radius
   private static int CROP_RADIUS = dpToPx(15);
 
-  public static int getFlagResId(Context context, String drawableName) throws NotFoundException {
+  public static int getFlagResId(Context context, String drawableName) {
     int resId = context.getResources().getIdentifier(
         drawableName.toLowerCase(Locale.ENGLISH) + "_flag", "mipmap", context.getPackageName());
-    if(resId != 0) {
+    if (resId != 0) {
       return resId;
     } else {
-      throw new NotFoundException("Flag resource not found!");
+      return  R.mipmap.unknown_flag;
     }
   }
 
@@ -73,8 +77,8 @@ public class CountryPickerUtils {
   public static Map<String, String> getCountryAndIsoHashMap(Context context) {
     Map<String, String> map = new HashMap<>();
 
-    List<Country> countries = CountryPickerUtils
-        .parseCountries(CountryPickerUtils.getCountriesJSON(context));
+    List<Country> countries = Utils
+        .parseCountries(Utils.getCountriesJSON(context));
 
     for (Country c : countries) {
       map.put(c.getCountryName(), c.getIsoCode());
@@ -96,7 +100,14 @@ public class CountryPickerUtils {
     return s.hasNext() ? s.next() : "";
   }
 
+
   public static Bitmap getCircleCroppedBitmap(Bitmap bitmap) {
+
+    int tWidth = bitmap.getWidth();
+    int tHeight = bitmap.getHeight();
+
+    int targetSize = Math.min(tWidth, tHeight);
+
     int targetWidth = CROP_RADIUS * 2;
     int targetHeight = CROP_RADIUS * 2;
 
@@ -109,15 +120,15 @@ public class CountryPickerUtils {
     path.addCircle(targetWidth / 2,
         targetHeight / 2,
         CROP_RADIUS,
-        Path.Direction.CCW);
+        Path.Direction.CW);
 
     canvas.clipPath(path);
 
     Paint mPaint = new Paint();
     mPaint.setAntiAlias(true);
 
-    int tWidth = bitmap.getWidth() / 2;
-    int tHeight = bitmap.getHeight() / 2;
+    tWidth = bitmap.getWidth() / 2;
+    tHeight = bitmap.getHeight() / 2;
 
     canvas.drawBitmap(bitmap,
         new Rect(tWidth - CROP_RADIUS, tHeight - CROP_RADIUS,
@@ -126,12 +137,22 @@ public class CountryPickerUtils {
             targetWidth, targetHeight),
         mPaint);
 
+    bitmap.recycle();
+
     return targetBitmap;
   }
 
-  public static Bitmap getCircleCroppedBitmap(Context mContext, int resId) {
-    return getCircleCroppedBitmap(BitmapFactory.decodeResource(mContext.getResources(), resId));
+  public static RoundedBitmapDrawable getRoundedDrawable(Context c, int resId) {
+    RoundedBitmapDrawable img = RoundedBitmapDrawableFactory
+        .create(c.getResources(), BitmapFactory.decodeResource(c.getResources(), resId));
+    img.setCornerRadius(Math.min(img.getMinimumWidth(), img.getMinimumHeight()) / 2.0f);
+    return img;
   }
+
+  public static Bitmap getCircleCroppedBitmap(Context c, int resId) {
+    return getCircleCroppedBitmap(BitmapFactory.decodeResource(c.getResources(), resId));
+  }
+
 
   public static int dpToPx(int dp) {
     return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
