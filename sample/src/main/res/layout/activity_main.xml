@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="io.xsor.countrypickersample.MainActivity">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ic_launcher"
+        android:id="@+id/ivFlag"
+        android:contentDescription="@string/country_flag"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp" />
+
+    <CheckBox
+        android:text="@string/show_dialing_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cbDialingCode"
+        android:checked="false"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        app:layout_constraintLeft_toLeftOf="@+id/radioGroup"
+        app:layout_constraintRight_toRightOf="@+id/radioGroup" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioGroup"
+        app:layout_constraintLeft_toLeftOf="@+id/tvCountry"
+        app:layout_constraintRight_toRightOf="@+id/tvCountry"
+        app:layout_constraintTop_toBottomOf="@+id/tvCountry"
+        android:layout_marginTop="16dp">
+
+        <RadioButton
+            android:text="@string/normal_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rbNormal"
+            android:layout_weight="1" />
+
+        <RadioButton
+          android:id="@+id/rbRound"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:checked="true"
+          android:text="@string/round_dialog" />
+    </RadioGroup>
+
+    <Button
+        android:text="@string/show_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btShowDialog"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/cbDialingCode"
+        app:layout_constraintLeft_toLeftOf="@+id/cbDialingCode"
+        app:layout_constraintRight_toRightOf="@+id/cbDialingCode" />
+
+    <TextView
+        android:text="@string/instructions_select_country"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvCountry"
+        app:layout_constraintLeft_toLeftOf="@+id/ivFlag"
+        app:layout_constraintRight_toRightOf="@+id/ivFlag"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/ivFlag" />
+
+    <Button
+        android:text="Show and Scroll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btShowDialogScroll"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/btShowDialog"
+        app:layout_constraintLeft_toLeftOf="@+id/btShowDialog"
+        app:layout_constraintRight_toRightOf="@+id/btShowDialog"
+        style="@style/Widget.AppCompat.Button.Colored" />
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Country Picker Sample</string>
+    <string name="normal_dialog">Square Flags</string>
+    <string name="round_dialog">Round Flags</string>
+    <string name="show_dialing_code">Show Dialing Code</string>
+    <string name="country_flag">Country Flag</string>
+    <string name="show_dialog">Show Dialog</string>
+    <string name="instructions_select_country">Select options and choose a country from the dialog</string>
+    <string name="selected_country">Selected: %1$s, %2$s, %3$d</string>
+</resources>

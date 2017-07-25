@@ -7,5 +7,5 @@ wear/wear.iml
 android.iml
 country-picker.iml
 hs_err_pid*
-Android-country-picker.iml
-/.idea
+.idea/
+*.iml
