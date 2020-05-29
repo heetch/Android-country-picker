@@ -83,7 +83,7 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
 
         @Override
         public void onClick(View v) {
-            onItemClickListener.onItemClick(getAdapterPosition(), countries.get(getAdapterPosition()));
+            onItemClickListener.onItemClick(getAdapterPosition(), countryListFiltered.get(getAdapterPosition()));
         }
     }
 
