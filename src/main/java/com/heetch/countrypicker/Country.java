@@ -8,10 +8,6 @@ public class Country {
     private String dialingCode;
     private String countryName;
 
-    public Country() {
-
-    }
-
     public Country(String name, String isoCode, String dialingCode) {
         this.isoCode = isoCode;
         this.dialingCode = dialingCode;
