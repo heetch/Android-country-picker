@@ -2,12 +2,14 @@ package com.heetch.countrypicker;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.app.AppCompatDialog;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDialog;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.Collator;
 import java.util.Collections;
@@ -22,9 +24,10 @@ public class CountryPickerDialog extends AppCompatDialog {
 
     private List<Country> countries;
     private CountryPickerCallbacks callbacks;
-    private ListView listview;
+    private RecyclerView recyclerView;
     private String headingCountryCode;
     private boolean showDialingCode;
+    private CountryListAdapter adapter;
 
     public CountryPickerDialog(Context context, CountryPickerCallbacks callbacks) {
         this(context, callbacks, null, true);
@@ -67,33 +70,32 @@ public class CountryPickerDialog extends AppCompatDialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.country_picker);
         ViewCompat.setElevation(getWindow().getDecorView(), 3);
-        listview = (ListView) findViewById(R.id.country_picker_listview);
+        recyclerView = findViewById(R.id.country_picker_listview);
 
-        CountryListAdapter adapter = new CountryListAdapter(this.getContext(), countries, showDialingCode);
-        listview.setAdapter(adapter);
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        adapter = new CountryListAdapter(this.getContext(), countries,
+                showDialingCode, new CountryListAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(int position, Country country) {
                 hide();
-                Country country = countries.get(position);
                 callbacks.onCountrySelected(country, Utils.getMipmapResId(getContext(),
                         country.getIsoCode().toLowerCase(Locale.ENGLISH) + "_flag"));
             }
         });
+        recyclerView.setAdapter(adapter);
 
-        scrollToHeadingCountry();
+        //scrollToHeadingCountry();
     }
 
-    private void scrollToHeadingCountry() {
+    /*private void scrollToHeadingCountry() {
         if (headingCountryCode != null) {
-            for (int i = 0; i < listview.getCount(); i++) {
-                if (((Country) listview.getItemAtPosition(i)).getIsoCode().toLowerCase()
+            for (int i = 0; i < adapter.getItemCount(); i++) {
+                if (((Country) recyclerView.getItemAtPosition(i)).getIsoCode().toLowerCase()
                         .equals(headingCountryCode.toLowerCase())) {
-                    listview.setSelection(i);
+                    recyclerView.setSelection(i);
                 }
             }
         }
-    }
+    }*/
 
     public Country getCountryFromIsoCode(String isoCode) {
         for (int i = 0; i < countries.size(); i++) {

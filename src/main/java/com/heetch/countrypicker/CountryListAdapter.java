@@ -8,86 +8,77 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
 import java.util.Locale;
 
 /**
  * Created by GODARD Tuatini on 07/05/15.
  */
-public class CountryListAdapter extends BaseAdapter {
+public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.ViewHolder> {
 
     private final Context mContext;
     private static final String TAG = CountryListAdapter.class.getSimpleName();
-    private LayoutInflater inflater;
     private List<Country> countries;
     private boolean showDialingCode;
+    public OnItemClickListener onItemClickListener;
 
-    public CountryListAdapter(Context context, List<Country> countries, boolean showDialingCode) {
+    public CountryListAdapter(Context context, List<Country> countries, boolean showDialingCode,
+                              OnItemClickListener onItemClickListener) {
         mContext = context;
         this.countries = countries;
         this.showDialingCode = showDialingCode;
-        inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.onItemClickListener = onItemClickListener;
+    }
+
+
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = inflater.inflate(R.layout.item_country, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public int getCount() {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Country country = countries.get(position);
+        holder.name.setText(String.format("%s%s", new Locale(mContext.getResources()
+                .getConfiguration().locale.getLanguage(),
+                country.getIsoCode()).getDisplayCountry(), showDialingCode ?
+                " (+" + country.getDialingCode() + ")" : ""));
+        String drawableName = country.getIsoCode().toLowerCase(Locale.ENGLISH) + "_flag";
+        holder.icon.setImageResource(Utils.getMipmapResId(holder.icon.getContext(), drawableName));
+    }
+
+    @Override
+    public int getItemCount() {
         return countries.size();
     }
 
-    @Override
-    public Object getItem(int position) {
-        return countries.get(position);
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        TextView name;
+        ImageView icon;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            icon = itemView.findViewById(R.id.icon);
+            name = itemView.findViewById(R.id.name);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            onItemClickListener.onItemClick(getAdapterPosition(), countries.get(getAdapterPosition()));
+        }
     }
 
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View itemView = convertView;
-        Item item;
-        Country country = countries.get(position);
-
-        if (convertView == null) {
-            item = new Item();
-            itemView = inflater.inflate(R.layout.item_country, parent, false);
-            item.setIcon((ImageView) itemView.findViewById(R.id.icon));
-            item.setName((TextView) itemView.findViewById(R.id.name));
-            itemView.setTag(item);
-        } else {
-            item = (Item) itemView.getTag();
-        }
-
-         item.getName().setText(new Locale(mContext.getResources().getConfiguration().locale.getLanguage(),
-                 country.getIsoCode()).getDisplayCountry() + (showDialingCode ?
-                 " (+" + country.getDialingCode() + ")" : ""));
-
-        // Load drawable dynamically from country code
-        String drawableName = country.getIsoCode().toLowerCase(Locale.ENGLISH) + "_flag";
-        item.getIcon().setImageResource(Utils.getMipmapResId(mContext, drawableName));
-        return itemView;
-    }
-
-    public static class Item {
-        private TextView name;
-        private ImageView icon;
-
-        public ImageView getIcon() {
-            return icon;
-        }
-
-        public void setIcon(ImageView icon) {
-            this.icon = icon;
-        }
-
-        public TextView getName() {
-            return name;
-        }
-
-        public void setName(TextView name) {
-            this.name = name;
-        }
+    interface OnItemClickListener{
+        void onItemClick(int position, Country country);
     }
 }
