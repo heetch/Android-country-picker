@@ -2,13 +2,12 @@ package com.heetch.countrypicker;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.view.Window;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialog;
-import androidx.core.view.ViewCompat;
+import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.Collator;
@@ -28,6 +27,7 @@ public class CountryPickerDialog extends AppCompatDialog {
     private String headingCountryCode;
     private boolean showDialingCode;
     private CountryListAdapter adapter;
+    private SearchView search_et;
 
     public CountryPickerDialog(Context context, CountryPickerCallbacks callbacks) {
         this(context, callbacks, null, true);
@@ -51,7 +51,7 @@ public class CountryPickerDialog extends AppCompatDialog {
         this.callbacks = callbacks;
         this.headingCountryCode = headingCountryCode;
         this.showDialingCode = showDialingCode;
-        countries = Utils.parseCountries(Utils.getCountriesJSON(this.getContext()));
+        countries = Utils.parseCountries(context, Utils.getCountriesJSON(this.getContext()));
         Collections.sort(countries, new Comparator<Country>() {
             @Override
             public int compare(Country country1, Country country2) {
@@ -68,9 +68,27 @@ public class CountryPickerDialog extends AppCompatDialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.country_picker);
-        ViewCompat.setElevation(getWindow().getDecorView(), 3);
         recyclerView = findViewById(R.id.country_picker_listview);
+
+        search_et = findViewById(R.id.country_search);
+
+        search_et.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(manager);
 
         adapter = new CountryListAdapter(this.getContext(), countries,
                 showDialingCode, new CountryListAdapter.OnItemClickListener() {
@@ -82,6 +100,10 @@ public class CountryPickerDialog extends AppCompatDialog {
             }
         });
         recyclerView.setAdapter(adapter);
+
+
+
+
 
         //scrollToHeadingCountry();
     }
