@@ -1,3 +1,7 @@
+# DEPRECATED
+
+This library is not maintained anymore. No more development will be done.
+
 Android country picker
 ====================
 
