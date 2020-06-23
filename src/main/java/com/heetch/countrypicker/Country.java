@@ -6,18 +6,20 @@ package com.heetch.countrypicker;
 public class Country {
     private String isoCode;
     private String dialingCode;
+    private String countryName;
 
-    public Country() {
-
-    }
-
-    public Country(String isoCode, String dialingCode) {
+    public Country(String name, String isoCode, String dialingCode) {
         this.isoCode = isoCode;
         this.dialingCode = dialingCode;
+        this.countryName = name;
     }
 
     public String getIsoCode() {
         return isoCode;
+    }
+
+    public String getCountryName() {
+        return countryName;
     }
 
     public void setIsoCode(String isoCode) {
